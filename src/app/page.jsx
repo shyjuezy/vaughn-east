@@ -20,7 +20,7 @@ import image2 from '@/images/photos/image-2.jpg'
 import image3 from '@/images/photos/image-3.jpg'
 import image4 from '@/images/photos/image-4.jpg'
 import image5 from '@/images/photos/image-5.jpg'
-import { getAllArticles } from '@/lib/articles'
+// import { getAllArticles } from '@/lib/articles'
 import { formatDate } from '@/lib/formatDate'
 
 function MailIcon(props) {
@@ -253,7 +253,7 @@ function Photos() {
 }
 
 export default async function Home() {
-  let articles = (await getAllArticles()).slice(0, 4)
+  let articles = [] //(await getAllArticles()).slice(0, 4)
   let rotations = ['rotate-2', '-rotate-2', 'rotate-2']
 
   return (
@@ -280,54 +280,36 @@ export default async function Home() {
           </p>
           <div className="mt-6 flex gap-6">
             <SocialLink
-              href="https://twitter.com"
+              href="#"
               aria-label="Follow on Twitter"
               icon={TwitterIcon}
             />
             <SocialLink
-              href="https://instagram.com"
+              href="#"
               aria-label="Follow on Instagram"
               icon={InstagramIcon}
-            />
-            <SocialLink
-              href="https://github.com"
-              aria-label="Follow on GitHub"
-              icon={GitHubIcon}
-            />
-            <SocialLink
-              href="https://linkedin.com"
-              aria-label="Follow on LinkedIn"
-              icon={LinkedInIcon}
             />
           </div>
         </div>
       </Container>
-      {/* <Photos /> */}
-      <Container className="mt-24 md:mt-28">
-        <div className="mx-auto grid max-w-xl grid-cols-1 gap-y-20 lg:max-w-none lg:grid-cols-2">
-          <div className="flex flex-col gap-16">
-            {articles.map((article) => (
-              <Article key={article.slug} article={article} />
-            ))}
-          </div>
-          <div className="flex flex-col lg:pl-16 xl:pl-24">
-            {[image1, image2, image3].map((image, imageIndex) => (
-              <div
-                key={image.src}
-                className={clsx(
-                  'relative aspect-[9/10] w-44 flex-none overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-800 sm:w-72 sm:rounded-2xl',
-                  rotations[imageIndex % rotations.length],
-                )}
-              >
-                <Image
-                  src={image}
-                  alt=""
-                  sizes="(min-width: 640px) 18rem, 11rem"
-                  className="absolute inset-0 h-full w-full object-cover"
-                />
-              </div>
-            ))}
-          </div>
+      <Container className="mt-24 flex items-center justify-center md:mt-28">
+        <div className="flex flex-wrap items-center justify-center lg:flex-row lg:pl-16 xl:pl-24">
+          {[image1, image2, image3].map((image, imageIndex) => (
+            <div
+              key={image.src}
+              className={clsx(
+                'relative aspect-[9/10] w-44 flex-none overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-800 sm:w-72 sm:rounded-2xl',
+                rotations[imageIndex % rotations.length],
+              )}
+            >
+              <Image
+                src={image}
+                alt=""
+                sizes="(min-width: 640px) 18rem, 11rem"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            </div>
+          ))}
         </div>
       </Container>
     </>

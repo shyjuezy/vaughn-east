@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { Card } from '@/components/Card'
 import { Section } from '@/components/Section'
 import {
@@ -8,6 +8,7 @@ import {
   PhoneIcon,
 } from '@heroicons/react/24/outline'
 
+import InputMask from 'react-input-mask'
 import { SimpleLayout } from '@/components/SimpleLayout'
 
 function ToolsSection({ children, ...props }) {
@@ -41,6 +42,14 @@ export default function Contact() {
   })
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(true)
+  const [error, setError] = useState({
+    email: null,
+    phoneNumber: null,
+  })
+
+  const hasError = useMemo(() => {
+    return Object.values(error).some((e) => e !== null)
+  }, [error])
 
   const handleInputChange = (event) => {
     console.log('event.target:', event.target)
@@ -49,6 +58,30 @@ export default function Contact() {
       ...formData,
       [name]: value,
     })
+
+    if (name === 'phoneNumber') {
+      // Simple regex validation for a US phone number
+      const phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
+      if (!phoneRegex.test(value)) {
+        setError((prevError) => ({
+          ...prevError,
+          phoneNumber: 'Invalid phone number format',
+        }))
+      } else {
+        setError((prevError) => ({ ...prevError, phoneNumber: null }))
+      }
+    } else if (name === 'email') {
+      // Validate email
+      const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
+      if (!emailRegex.test(value)) {
+        setError((prevError) => ({
+          ...prevError,
+          email: 'Invalid email format',
+        }))
+      } else {
+        setError((prevError) => ({ ...prevError, email: null }))
+      }
+    }
   }
 
   useEffect(() => {
@@ -233,6 +266,9 @@ export default function Contact() {
                       className="block w-full rounded-md border-0 bg-white/5 px-3.5 py-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-500 dark:ring-white/10 sm:text-sm sm:leading-6"
                     />
                   </div>
+                  {error.email && (
+                    <div className="text-sm text-red-500">{error.email}</div>
+                  )}
                 </div>
                 <div className="sm:col-span-2">
                   <label
@@ -242,15 +278,29 @@ export default function Contact() {
                     Phone number
                   </label>
                   <div className="mt-2.5">
-                    <input
-                      type="tel"
-                      name="phoneNumber"
-                      id="phoneNumber"
-                      autoComplete="tel"
-                      onChange={handleInputChange}
+                    <InputMask
+                      mask="(999) 999-9999"
+                      maskChar={null}
                       value={formData.phoneNumber}
-                      className="block w-full rounded-md border-0 bg-white/5 px-3.5 py-2 shadow-sm ring-1 ring-inset ring-gray-300  focus:ring-2 focus:ring-inset focus:ring-indigo-500 dark:ring-white/10 sm:text-sm sm:leading-6"
-                    />
+                      onChange={handleInputChange}
+                    >
+                      {() => (
+                        <input
+                          type="tel"
+                          name="phoneNumber"
+                          id="phoneNumber"
+                          autoComplete="tel"
+                          onChange={handleInputChange}
+                          value={formData.phoneNumber}
+                          className="block w-full rounded-md border-0 bg-white/5 px-3.5 py-2 shadow-sm ring-1 ring-inset ring-gray-300  focus:ring-2 focus:ring-inset focus:ring-indigo-500 dark:ring-white/10 sm:text-sm sm:leading-6"
+                        />
+                      )}
+                    </InputMask>
+                    {error.phoneNumber && (
+                      <span className="text-sm text-red-500">
+                        {error.phoneNumber}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className="sm:col-span-2">
@@ -267,8 +317,7 @@ export default function Contact() {
                       rows={4}
                       onChange={handleInputChange}
                       value={formData.message}
-                      className="block w-full rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10  focus:ring-2 focus:ring-inset focus:ring-indigo-500 dark:ring-white/10 sm:text-sm sm:leading-6"
-                      defaultValue={''}
+                      className="block w-full rounded-md border-0 bg-white/5 px-3.5 py-2 shadow-sm ring-1 ring-inset ring-gray-300  focus:ring-2 focus:ring-inset focus:ring-indigo-500 dark:ring-white/10 sm:text-sm sm:leading-6"
                     />
                   </div>
                 </div>
@@ -276,11 +325,10 @@ export default function Contact() {
               <div className="mt-8 flex justify-end">
                 <button
                   type="submit"
-                  disabled={isButtonDisabled}
-                  // className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  disabled={isButtonDisabled || hasError}
                   className={`rounded-md px-3.5 py-2.5 text-center text-sm font-semibold shadow-sm 
     ${
-      isButtonDisabled
+      isButtonDisabled || hasError
         ? 'cursor-not-allowed bg-gray-400'
         : 'bg-teal-600 hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600'
     }`}

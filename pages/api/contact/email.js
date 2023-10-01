@@ -14,11 +14,9 @@ export default async (req, res) => {
 
     const content = {
       to: 'shyju.viswambaran@coxautoinc.com',
-      // from: email,
       from: 'shyjuezy@gmail.com',
       subject: 'New Message from Contact Form',
       text: message,
-      // html: `<p>${message}</p><p>Contact Email: ${email}</p><p>First Name: ${firstName}</p><p>Last Name: ${lastName}</p>`,
       html: `
     <html>
       <head>
