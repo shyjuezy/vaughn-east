@@ -1,5 +1,5 @@
 'use client'
-
+import React, { useState, useEffect } from 'react'
 import { Card } from '@/components/Card'
 import { Section } from '@/components/Section'
 import {
@@ -31,15 +31,62 @@ function Tool({ title, href, children }) {
   )
 }
 
-// export const metadata = {
-//   title: 'Uses',
-//   description: 'Software I use, gadgets I love, and other things I recommend.',
-// }
-
 export default function Contact() {
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    // Your form submission logic here
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: '',
+    message: '',
+  })
+
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true)
+
+  const handleInputChange = (event) => {
+    console.log('event.target:', event.target)
+    const { name, value } = event.target
+    setFormData({
+      ...formData,
+      [name]: value,
+    })
+  }
+
+  useEffect(() => {
+    console.log('isButtonDisabled:', isButtonDisabled)
+  }, [isButtonDisabled])
+
+  useEffect(() => {
+    console.log('#######button disabled:', isButtonDisabled)
+    const { firstName, lastName, email, phoneNumber, message } = formData
+    if (firstName && lastName && email && phoneNumber && message) {
+      setIsButtonDisabled(false)
+    } else {
+      setIsButtonDisabled(true)
+    }
+  }, [formData])
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    const email = event.target.email.value
+    const message = event.target.message.value
+    const firstName = event.target.firstName.value
+    const lastName = event.target.lastName.value
+
+    const response = await fetch('/api/contact/email', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, message, firstName, lastName }),
+    })
+
+    if (response.ok) {
+      console.log('Message sent successfully.')
+      window.alert('Message sent successfully.')
+      event.target.reset()
+    } else {
+      console.error('Message not sent.')
+    }
   }
 
   return (
@@ -132,7 +179,7 @@ export default function Contact() {
               <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
                 <div>
                   <label
-                    htmlFor="first-name"
+                    htmlFor="firstName"
                     className="block text-sm font-semibold leading-6"
                   >
                     First name
@@ -140,16 +187,18 @@ export default function Contact() {
                   <div className="mt-2.5">
                     <input
                       type="text"
-                      name="first-name"
-                      id="first-name"
+                      name="firstName"
+                      id="firstName"
                       autoComplete="given-name"
+                      onChange={handleInputChange}
+                      value={formData.firstName}
                       className="block w-full rounded-md border-0 bg-white/5 px-3.5 py-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-500 dark:ring-white/10 sm:text-sm sm:leading-6"
                     />
                   </div>
                 </div>
                 <div>
                   <label
-                    htmlFor="last-name"
+                    htmlFor="lastName"
                     className="block text-sm font-semibold leading-6 "
                   >
                     Last name
@@ -157,9 +206,11 @@ export default function Contact() {
                   <div className="mt-2.5">
                     <input
                       type="text"
-                      name="last-name"
-                      id="last-name"
+                      name="lastName"
+                      id="lastName"
                       autoComplete="family-name"
+                      onChange={handleInputChange}
+                      value={formData.lastName}
                       className="block w-full rounded-md border-0 bg-white/5 px-3.5 py-2 shadow-sm  ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-500 dark:ring-white/10 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -177,13 +228,15 @@ export default function Contact() {
                       name="email"
                       id="email"
                       autoComplete="email"
+                      onChange={handleInputChange}
+                      value={formData.email}
                       className="block w-full rounded-md border-0 bg-white/5 px-3.5 py-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-500 dark:ring-white/10 sm:text-sm sm:leading-6"
                     />
                   </div>
                 </div>
                 <div className="sm:col-span-2">
                   <label
-                    htmlFor="phone-number"
+                    htmlFor="phoneNumber"
                     className="block text-sm font-semibold leading-6 "
                   >
                     Phone number
@@ -191,9 +244,11 @@ export default function Contact() {
                   <div className="mt-2.5">
                     <input
                       type="tel"
-                      name="phone-number"
-                      id="phone-number"
+                      name="phoneNumber"
+                      id="phoneNumber"
                       autoComplete="tel"
+                      onChange={handleInputChange}
+                      value={formData.phoneNumber}
                       className="block w-full rounded-md border-0 bg-white/5 px-3.5 py-2 shadow-sm ring-1 ring-inset ring-gray-300  focus:ring-2 focus:ring-inset focus:ring-indigo-500 dark:ring-white/10 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -210,6 +265,8 @@ export default function Contact() {
                       name="message"
                       id="message"
                       rows={4}
+                      onChange={handleInputChange}
+                      value={formData.message}
                       className="block w-full rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10  focus:ring-2 focus:ring-inset focus:ring-indigo-500 dark:ring-white/10 sm:text-sm sm:leading-6"
                       defaultValue={''}
                     />
@@ -219,7 +276,14 @@ export default function Contact() {
               <div className="mt-8 flex justify-end">
                 <button
                   type="submit"
-                  className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  disabled={isButtonDisabled}
+                  // className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  className={`rounded-md px-3.5 py-2.5 text-center text-sm font-semibold shadow-sm 
+    ${
+      isButtonDisabled
+        ? 'cursor-not-allowed bg-gray-400'
+        : 'bg-teal-600 hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600'
+    }`}
                 >
                   Send message
                 </button>
