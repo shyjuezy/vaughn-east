@@ -261,22 +261,13 @@ export default async function Home() {
       <Container className="mt-9">
         <div className="max-w-2xl">
           <h1 className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Est,
-            nobis.
+            Welcome Home!
           </h1>
           <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
-            consequatur nisi exercitationem! Repudiandae soluta, voluptatum,
-            temporibus dicta sunt impedit ab saepe illum repellat earum
-            voluptate eius debitis dolor ad aspernatur fugit cupiditate. Quasi
-            officia, odit harum neque veniam cumque, fugit laborum aliquid
-            pariatur enim sit reiciendis voluptas tempora porro earum temporibus
-            veritatis excepturi saepe quibusdam ut id iste? Laudantium maiores
-            accusamus deleniti deserunt aspernatur minus voluptatem vero, earum
-            sapiente repellendus suscipit cum aut quam illum blanditiis eligendi
-            quia a sunt inventore. Numquam repellat nemo ex excepturi
-            reiciendis, voluptate doloremque quas incidunt perspiciatis, a
-            accusantium repudiandae cum? Ipsum cumque sequi maxime.
+            On behalf of the Vaughn East Neighborhood Homeowners Association we welcome you to our Vaughn East Neighborhood website.
+            Our website has been created to improve communication to the residents our community.  Our goal is to provide an online platform for sharing essential information like news, events, resources and ways to contact the board just to name a few.
+            Please be patient as we continue to build out this site, we look forward to bringing you more information as we continue to make progress on our site.
+
           </p>
           <div className="mt-6 flex gap-6">
             <SocialLink
