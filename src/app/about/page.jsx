@@ -4,9 +4,9 @@ import clsx from 'clsx'
 
 import {Container} from '@/components/Container'
 import {
-    GitHubIcon,
+    // GitHubIcon,
     InstagramIcon,
-    LinkedInIcon,
+    // LinkedInIcon,
     TwitterIcon,
 } from '@/components/SocialIcons'
 import portraitImage from '@/images/portrait.jpg'
@@ -25,16 +25,16 @@ function SocialLink({className, href, children, icon: Icon}) {
     )
 }
 
-function MailIcon(props) {
-    return (
-        <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
-            <path
-                fillRule="evenodd"
-                d="M6 5a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3V8a3 3 0 0 0-3-3H6Zm.245 2.187a.75.75 0 0 0-.99 1.126l6.25 5.5a.75.75 0 0 0 .99 0l6.25-5.5a.75.75 0 0 0-.99-1.126L12 12.251 6.245 7.187Z"
-            />
-        </svg>
-    )
-}
+// function MailIcon(props) {
+//     return (
+//         <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
+//             <path
+//                 fillRule="evenodd"
+//                 d="M6 5a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3V8a3 3 0 0 0-3-3H6Zm.245 2.187a.75.75 0 0 0-.99 1.126l6.25 5.5a.75.75 0 0 0 .99 0l6.25-5.5a.75.75 0 0 0-.99-1.126L12 12.251 6.245 7.187Z"
+//             />
+//         </svg>
+//     )
+// }
 
 export const metadata = {
     title: 'About',
@@ -124,7 +124,7 @@ export default function About() {
                         </dt>
                         <dd>
                             <ul className="list-disc pl-5">
-                                <li>ld and New Business</li>
+                                <li>Old and New Business</li>
                                 <li>Open forum for community feedback</li>
                                 <li>Social time with our friends and neighbors</li>
                                 <li>Guest speakers (some meetings)</li>
