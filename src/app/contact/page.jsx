@@ -49,7 +49,7 @@ export default function Contact() {
   }, [error])
 
   const handleInputChange = (event) => {
-    console.log('event.target:', event.target)
+    // console.log('event.target:', event.target)
     const { name, value } = event.target
     setFormData({
       ...formData,
@@ -107,7 +107,6 @@ export default function Contact() {
     })
 
     if (response.success) {
-      console.log('Message sent successfully.')
       window.alert('Message sent successfully.')
       setFormData({
         firstName: '',
