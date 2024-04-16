@@ -42,6 +42,7 @@ export default function Contact() {
   const [error, setError] = useState({
     email: null,
     phoneNumber: null,
+    message: null,
   })
 
   const hasError = useMemo(() => {
@@ -77,6 +78,20 @@ export default function Contact() {
         }))
       } else {
         setError((prevError) => ({ ...prevError, email: null }))
+      }
+    }
+    else if (name === 'message') {
+      // message must have two words of minimum length 3
+      const messageRegex = /\b\w{3,}\b/g
+      const matches = value.match(messageRegex) || []
+      if (matches.length < 2 || value.length < 6) {
+        setError((prevError) => ({
+          ...prevError,
+          message: 'Message must have at least two words of minimum length 3',
+        }))
+      } else {
+        setError((prevError) => ({ ...prevError, message: null }))
+
       }
     }
   }
@@ -320,6 +335,9 @@ export default function Contact() {
                       className="block w-full rounded-md border-0 bg-white/5 px-3.5 py-2 shadow-sm ring-1 ring-inset ring-gray-300  focus:ring-2 focus:ring-inset focus:ring-indigo-500 dark:ring-white/10 sm:text-sm sm:leading-6"
                     />
                   </div>
+                  {error.message && (
+                    <div className="text-sm text-red-500">{error.message}</div>
+                  )}
                 </div>
               </div>
               <div className="mt-8 flex justify-end">
