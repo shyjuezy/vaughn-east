@@ -36,3 +36,4 @@ next-env.d.ts
 .env.example
 .env.local
 .idea
+.env.local
