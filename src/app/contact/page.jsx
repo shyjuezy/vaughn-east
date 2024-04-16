@@ -1,10 +1,6 @@
 'use client'
 import React, { useState, useEffect, useMemo } from 'react'
-import {
-  BuildingOffice2Icon,
-  EnvelopeIcon,
-  PhoneIcon,
-} from '@heroicons/react/24/outline'
+import { EnvelopeIcon } from '@heroicons/react/24/outline'
 
 import InputMask from 'react-input-mask'
 import { SimpleLayout } from '@/components/SimpleLayout'
@@ -79,8 +75,7 @@ export default function Contact() {
       } else {
         setError((prevError) => ({ ...prevError, email: null }))
       }
-    }
-    else if (name === 'message') {
+    } else if (name === 'message') {
       // message must have two words of minimum length 3
       const messageRegex = /\b\w{3,}\b/g
       const matches = value.match(messageRegex) || []
@@ -91,7 +86,6 @@ export default function Contact() {
         }))
       } else {
         setError((prevError) => ({ ...prevError, message: null }))
-
       }
     }
   }
@@ -166,37 +160,6 @@ export default function Contact() {
                 will do their best to respond to your email within a few days.
               </p>
               <dl className="mt-10 space-y-4 text-base leading-7">
-                <div className="flex gap-x-4">
-                  <dt className="flex-none">
-                    <span className="sr-only">Address</span>
-                    <BuildingOffice2Icon
-                      className="h-7 w-6"
-                      aria-hidden="true"
-                    />
-                  </dt>
-                  <dd>
-                    545 Mavis Island
-                    <br />
-                    Chicago, IL 99191
-                  </dd>
-                </div>
-                <div className="flex gap-x-4">
-                  <dt className="flex-none">
-                    <span className="sr-only">Telephone</span>
-                    <PhoneIcon
-                      className="h-7 w-6 text-gray-400"
-                      aria-hidden="true"
-                    />
-                  </dt>
-                  <dd>
-                    <a
-                      className="text-white-700 transition duration-200 hover:text-teal-600"
-                      href="tel:+1 (555) 234-5678"
-                    >
-                      +1 (555) 234-5678
-                    </a>
-                  </dd>
-                </div>
                 <div className="flex gap-x-4">
                   <dt className="flex-none">
                     <span className="sr-only">Email</span>
