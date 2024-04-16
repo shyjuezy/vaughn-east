@@ -39,5 +39,6 @@ export async function sendEmails({
         return {success: true}
     } catch (error) {
         console.error('Failed to send email:', error)
+        return {success: false}
     }
 }
