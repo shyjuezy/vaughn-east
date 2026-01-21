@@ -13,7 +13,7 @@ const officers = [
   },
   {
     title: 'Vice President',
-    name: 'Lee Argo Rawlinson',
+    name: 'Leah Missildine',
   },
   {
     title: 'Secretary',
@@ -21,7 +21,7 @@ const officers = [
   },
   {
     title: 'Finance',
-    name: 'Laura Oates',
+    name: 'Vacant',
   },
 ]
 
@@ -171,9 +171,9 @@ export default function Contact() {
                   <dd>
                     <a
                       className="text-white-700 transition duration-200 hover:text-teal-600"
-                      href="mailto:hello@example.com"
+                      href="mailto:secretary@vaughneast.com"
                     >
-                      hello@example.com
+                      secretary@vaughneast.com
                     </a>
                   </dd>
                 </div>
