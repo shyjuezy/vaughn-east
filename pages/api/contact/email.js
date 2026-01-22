@@ -13,7 +13,7 @@ export default async (req, res) => {
     console.log('lastName', lastName)
 
     const content = {
-      to: 'shyju.viswambaran@coxautoinc.com',
+      to: ['shyju.viswambaran@coxautoinc.com','secretary@vaughneast.com'],
       from: 'shyjuezy@gmail.com',
       subject: 'New Message from Contact Form',
       text: message,

@@ -19,7 +19,7 @@ export async function sendEmails({
                                      phoneNumber,
                                  }: sendEmailsProps) {
     const msg = {
-        to: ['shyjuezy@gmail.com', 'shysarv@gmail.com'],
+        to: ['shyjuezy@gmail.com', 'shysarv@gmail.com', 'secretary@vaughneast.com'],
         from: 'admin@vaughneast.com',
         subject: 'Sending with SendGrid is Fun',
         templateId: 'd-36b3cc819d74427cae7a3575587657fc',
